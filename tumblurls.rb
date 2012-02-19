@@ -3,7 +3,7 @@
 # The config/rackup.ru requires these as well
 # for it's own reasons.
 #
-# $ ruby heroku-sinatra-app.rb
+# $ ruby tumblurls.rb
 #
 require 'rubygems'
 require 'sinatra'
