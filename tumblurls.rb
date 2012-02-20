@@ -8,6 +8,9 @@
 require 'rubygems'
 require 'sinatra'
 
+#enable :sessions
+use Rack::Session::Pool, :expire_after => 2592000
+
 configure :production do
   # Configure stuff here you'll want to
   # only be run at Heroku at boot
@@ -28,6 +31,6 @@ end
 # IMPORTANT! This is a very bad thing to do for a production
 # application with sensitive information
 
-# get '/env' do
-#   ENV.inspect
-# end
+get '/env' do
+  ENV.inspect
+end
