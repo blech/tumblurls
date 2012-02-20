@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>tumblurls.heroku.com</title>
+	<meta name="generator" content="BBEdit 10.1" />
+</head>
+<body>
+
+<form action="/post" method="POST">
+{% for suffix in (1..url_fields) %}
+<input type="url" name="url_{{ suffix }}" value=""><br>
+{% endfor %}
+
+<input type="submit" name="submit" value="go">
+</form>
+
+</body>
+</html>

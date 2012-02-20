@@ -1,36 +1,26 @@
-# You'll need to require these if you
-# want to develop while running with ruby.
-# The config/rackup.ru requires these as well
-# for it's own reasons.
-#
 # $ ruby tumblurls.rb
 #
 require 'rubygems'
 require 'sinatra'
+require 'liquid'
+require 'net/http'
 
 #enable :sessions
 use Rack::Session::Pool, :expire_after => 2592000
 
-configure :production do
-  # Configure stuff here you'll want to
-  # only be run at Heroku at boot
+set :public_folder, File.dirname(__FILE__) + '/static'
 
-  # TIP:  You can get you database information
-  #       from ENV['DATABASE_URI'] (see /env route below)
-end
+# global configuration (oops)
+url_fields = 6
 
-# Quick test
+# home page
 get '/' do
-  "Congradulations!
-   You're running a Sinatra application on Heroku!"
+    liquid :index, :locals => { :url_fields => url_fields }
 end
 
-# Test at <appname>.heroku.com
-
-# You can see all your app specific information this way.
-# IMPORTANT! This is a very bad thing to do for a production
-# application with sensitive information
-
-get '/env' do
-  ENV.inspect
+# post page
+post '/post' do
+    # TODO write ALL the codes
+    liquid :post, :locals => { :data => params }
+    
 end
