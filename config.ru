@@ -1,4 +1,4 @@
-require 'tumblurls.rb'
+require './tumblurls.rb'
 
 ## There is no need to set directories here anymore;
 ## Just run the application
