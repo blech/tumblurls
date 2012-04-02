@@ -22,6 +22,8 @@ consumer = OAuth::Consumer.new(key, secret,
                                  :access_token_path => '/oauth/access_token',
                                  :http_method => :post })
 
+@callback_url = 'http://127.0.0.1:9393/'
+
 # home page
 get '/' do
     liquid :index, :locals => { :url_fields => url_fields }
@@ -42,7 +44,12 @@ end
 
 get '/callback' do
     request_token = consumer.get_request_token(:oauth_callback => @callback_url)
-    access_token = request_token.get_access_token(oauth_token: params[:oauth_token], oauth_verifier: params[:oauth_verifier])
+    puts request_token
+    oauth_token = params['oauth_token']
+    oauth_verifier = params['oauth_verifier']
+    puts oauth_token
+    puts oauth_verifier
+    # access_token = request_token.get_access_token(:oauth_token => oauth_token, :oauth_verifier => oauth_verifier)
     
     liquid :callback
 end
