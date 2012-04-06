@@ -7,6 +7,8 @@ require 'httparty'
 require 'oauth'
 
 set :public_folder, File.dirname(__FILE__) + '/static'
+enable :sessions
+# use Rack::Session::Pool, :key => 'rack.session'
 
 # global configuration (oops)
 url_fields = 6
@@ -37,12 +39,34 @@ end
 # oauth page
 get '/oauth' do
     request_token = consumer.get_request_token(:oauth_callback => @callback_url)
+    session[:request_token] = request_token
+    puts session[:request_token]
     redirect request_token.authorize_url
 end
 
 get '/callback' do
-    request_token = consumer.get_request_token(:oauth_callback => @callback_url)
-    access_token = request_token.get_access_token(oauth_token: params[:oauth_token], oauth_verifier: params[:oauth_verifier])
+    request_token = session[:request_token]
+    puts request_token
+    if request_token:
+      puts params[:oauth_token]
+      puts params[:oauth_verifier]
+      access_token = request_token.get_access_token(:oauth_verifier => params[:oauth_verifier])
+      puts access_token
+      session[:access_token] = access_token
+    end
     
-    liquid :callback
+    # redirect "/info"
+    # liquid :callback
+end
+
+get '/info' do
+    access_token = session[:access_token]
+    puts access_token
+    if access_token:
+        user_info = access_token.get("http://api.tumblr.com/v2/user/info")
+        puts user_info
+    
+    else
+        halt 500
+    end
 end
