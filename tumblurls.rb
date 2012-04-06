@@ -24,6 +24,8 @@ consumer = OAuth::Consumer.new(key, secret,
                                  :access_token_path => '/oauth/access_token',
                                  :http_method => :post })
 
+@callback_url = 'http://127.0.0.1:9393/'
+
 # home page
 get '/' do
     liquid :index, :locals => { :url_fields => url_fields }
@@ -65,7 +67,6 @@ get '/info' do
     if access_token:
         user_info = access_token.get("http://api.tumblr.com/v2/user/info")
         puts user_info
-    
     else
         halt 500
     end

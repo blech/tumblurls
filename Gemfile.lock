@@ -1,7 +1,6 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    liquid (2.3.0)
     httparty (0.8.1)
       multi_json
       multi_xml
