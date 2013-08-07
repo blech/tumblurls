@@ -23,6 +23,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler (= 1.2.4)
   httparty
   liquid (= 2.3.0)
   oauth (= 0.3.6)
