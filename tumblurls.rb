@@ -49,12 +49,12 @@ end
 get '/callback' do
     request_token = session[:request_token]
     puts request_token
-    if request_token:
-      puts params[:oauth_token]
-      puts params[:oauth_verifier]
-      access_token = request_token.get_access_token(:oauth_verifier => params[:oauth_verifier])
-      puts access_token
-      session[:access_token] = access_token
+    if request_token then
+        puts params[:oauth_token]
+        puts params[:oauth_verifier]
+        access_token = request_token.get_access_token(:oauth_verifier => params[:oauth_verifier])
+        puts access_token
+        session[:access_token] = access_token
     end
     
     # redirect "/info"
@@ -64,7 +64,7 @@ end
 get '/info' do
     access_token = session[:access_token]
     puts access_token
-    if access_token:
+    if access_token then
         user_info = access_token.get("http://api.tumblr.com/v2/user/info")
         puts user_info
     else
